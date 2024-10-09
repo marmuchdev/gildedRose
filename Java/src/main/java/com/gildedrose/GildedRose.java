@@ -15,42 +15,58 @@ class GildedRose {
     }
 
     private static void updateItem(Item item) {
-        if (item.name.equals("Aged Brie")) {
-            increaseQuality(item);
+        updateQuality(item);
+        updateExpiration(item);
+        if (isExpired(item)) {
+            handleExpired(item);
+        }
+    }
 
-            updateExpiration(item);
-
-            if (isExpired(item)) {
+    private static void updateQuality(Item item) {
+        switch (item.name) {
+            case "Aged Brie":
                 increaseQuality(item);
-            }
-        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            increaseQuality(item);
-
-            if (item.sellIn < 11) {
+                break;
+            case "Backstage passes to a TAFKAL80ETC concert":
                 increaseQuality(item);
-            }
 
-            if (item.sellIn < 6) {
-                increaseQuality(item);
-            }
+                if (item.sellIn < 11) {
+                    increaseQuality(item);
+                }
 
-            updateExpiration(item);
-            //        updateSellIn();
-            if (isExpired(item)) {
-                item.quality = 0;
-            }
-        } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {//When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
-        } else {//                    Everything else logics Starts
-            decreaseQuality(item);
-            updateExpiration(item);
-            if (isExpired(item)) {
+                if (item.sellIn < 6) {
+                    increaseQuality(item);
+                }
+                break;
+            case
+                "Sulfuras, Hand of Ragnaros": //When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
+                break;
+            default: //                    Everything else logics Starts
                 decreaseQuality(item);
-            }
+                break;
         }
     }
 
     private static void updateExpiration(Item item) {
-        item.sellIn = item.sellIn - 1;
+        if (!item.name.equals("Sulfuras, Hand of Ragnaros")) item.sellIn = item.sellIn - 1;
+    }
+
+    private static void handleExpired(Item item) {
+        switch (item.name) {
+            case "Aged Brie":
+                increaseQuality(item);
+                break;
+            case "Backstage passes to a TAFKAL80ETC concert":
+                item.quality = 0;
+                break;
+            case
+                "Sulfuras, Hand of Ragnaros": //When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
+                break;
+            default: //                    Everything else logics Starts
+                decreaseQuality(item);
+                break;
+        }
+
     }
 
     private static boolean isExpired(Item item) {
