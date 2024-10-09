@@ -1,12 +1,18 @@
 package com.gildedrose;
 
-public class Sulfuras extends Item {
-    public Sulfuras(int sellIn, int quality) {
-        super("Sulfuras, Hand of Ragnaros", sellIn, quality);
+public class Sulfuras extends ItemInventory {
+    Sulfuras(Item item) {
+        super(item);
     }
 
     @Override
-    protected void doUpdateQuality() {
-        //When you update Sulfuras Quality method does nothing as it is legendery product with 80 quality
+    protected void updateQuality() {
+        /* When you update Sulfuras Quality method does nothing
+        as it is legendary product with 80 quality that never changes */
+    }
+
+    @Override
+    protected void handleExpired() {
+        // Sulfuras never expires- has no expiry date
     }
 }

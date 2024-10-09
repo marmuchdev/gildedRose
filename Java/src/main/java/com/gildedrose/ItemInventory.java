@@ -17,9 +17,9 @@ public class ItemInventory {
                 return new AgedBrie(item);
             case "Backstage passes to a TAFKAL80ETC concert":
                 return new BackstagePass(item);
-            case "Sulfuras, Hand of Ragnaros": //When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
-                return new ItemInventory(item);
-            default: //                    Everything else logics Starts
+            case "Sulfuras, Hand of Ragnaros":
+                return new Sulfuras(item);
+            default:
                 return new ItemInventory(item);
         }
     }
@@ -33,14 +33,8 @@ public class ItemInventory {
     }
 
     protected void updateQuality() {
-        switch (item.name) {
-            case
-                "Sulfuras, Hand of Ragnaros": //When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
-                break;
-            default: //                    Everything else logics Starts
-                decreaseQuality();
-                break;
-        }
+        // default/standard item logic
+        decreaseQuality();
     }
 
     protected void updateExpiration() {
@@ -52,14 +46,8 @@ public class ItemInventory {
     }
 
     protected void handleExpired() {
-        switch (item.name) {
-            case
-                "Sulfuras, Hand of Ragnaros": //When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
-                break;
-            default: //                    Everything else logics Starts
-                decreaseQuality();
-                break;
-        }
+        // default/standard item logic
+        decreaseQuality();
     }
 
     protected void increaseQuality() {
