@@ -1,34 +1,23 @@
 package com.gildedrose;
 
-public class BackstagePass extends Item {
-    public BackstagePass(int sellIn, int quality) {
-        super("Backstage passes to a TAFKAL80ETC concert", sellIn, quality);
+public class BackstagePass extends ItemInventory {
+    BackstagePass(Item item) {
+        super(item);
     }
 
     @Override
-    protected void doUpdateQuality() {
-        // Backstage logic starts here
-        if (quality < 50) {
-            quality = quality + 1;
-
-            if (sellIn < 11) {
-                if (quality < 50) {
-                    quality = quality + 1;
-                }
-            }
-
-            if (sellIn < 6) {
-                if (quality < 50) {
-                    quality = quality + 1;
-                }
-            }
+    protected void updateQuality() {
+        increaseQuality();
+        if (item.sellIn < 11) {
+            increaseQuality();
         }
-
-//        sellIn = sellIn - 1;
-        updateSellIn();
-        if (sellIn < 0) {
-            quality = 0;
+        if (item.sellIn < 6) {
+            increaseQuality();
         }
-        //Backstage passes Logic Ends
+    }
+
+    @Override
+    protected void handleExpired() {
+        item.quality = 0;
     }
 }

@@ -1,7 +1,7 @@
 package com.gildedrose;
 
 public class ItemInventory {
-    private final Item item;
+    protected final Item item;
 
 //    public static ItemInventory createInventoryItem(Item item) {
 //        return new ItemInventory(item);
@@ -16,7 +16,7 @@ public class ItemInventory {
             case "Aged Brie":
                 return new AgedBrie(item);
             case "Backstage passes to a TAFKAL80ETC concert":
-                return new ItemInventory(item);
+                return new BackstagePass(item);
             case "Sulfuras, Hand of Ragnaros": //When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
                 return new ItemInventory(item);
             default: //                    Everything else logics Starts
@@ -33,19 +33,13 @@ public class ItemInventory {
     }
 
     protected void updateQuality() {
-        if (item.name.equals("Aged Brie")) {
-            increaseQuality();
-        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            increaseQuality();
-            if (item.sellIn < 11) {
-                increaseQuality();
-            }
-            if (item.sellIn < 6) {
-                increaseQuality();
-            }
-        } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {//When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
-        } else {//                    Everything else logics Starts
-            decreaseQuality();
+        switch (item.name) {
+            case
+                "Sulfuras, Hand of Ragnaros": //When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
+                break;
+            default: //                    Everything else logics Starts
+                decreaseQuality();
+                break;
         }
     }
 
@@ -59,12 +53,6 @@ public class ItemInventory {
 
     protected void handleExpired() {
         switch (item.name) {
-            case "Aged Brie":
-                increaseQuality();
-                break;
-            case "Backstage passes to a TAFKAL80ETC concert":
-                item.quality = 0;
-                break;
             case
                 "Sulfuras, Hand of Ragnaros": //When you update Sulfuras Quality method does nothing as it is legendary product with 80 quality
                 break;
