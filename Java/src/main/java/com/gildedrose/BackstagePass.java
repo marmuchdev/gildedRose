@@ -8,10 +8,12 @@ public class BackstagePass extends ItemFactory {
     @Override
     protected void updateQuality() {
         increaseQuality();
-        if (item.sellIn < 11) {
+        int firstIncreaseStageStart = 11;
+        if (item.sellIn < firstIncreaseStageStart) {
             increaseQuality();
         }
-        if (item.sellIn < 6) {
+        int secondIncreaseStageStart = 6;
+        if (item.sellIn < secondIncreaseStageStart) {
             increaseQuality();
         }
     }

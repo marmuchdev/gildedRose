@@ -50,7 +50,8 @@ public class ItemFactory {
     }
 
     protected void increaseQuality() {
-        if (item.quality < 50) {
+        int maxQuality = 50;
+        if (item.quality < maxQuality) {
             item.quality += 1;
         }
     }

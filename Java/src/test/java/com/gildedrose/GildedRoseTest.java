@@ -119,4 +119,14 @@ class GildedRoseTest {
 
         assertEquals(item.sellIn,9);
     }
+
+    @Test
+    void conjuredItemsDegradeInQualityTwiceAsFastThanStandardItemPastExpiryDay() {
+        Item item = new Item("Conjured", 0,20);
+        GildedRose app = new GildedRose(new Item[]{item});
+
+        app.dailyInventoryUpdate();
+
+        assertEquals(item.quality,16);
+    }
 }
