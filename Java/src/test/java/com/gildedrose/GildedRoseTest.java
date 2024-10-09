@@ -12,16 +12,16 @@ class GildedRoseTest {
     void udpateQuality() {
         //full coverage test
         verifyAllCombinations(
-            this::doUpdateQuality,
+            this::doUpdateInventory,
             new String[]{"foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"},
             new Integer[]{-1,0,5,6,11},
             new Integer[]{0,1,49,50});
     }
 
-    private String doUpdateQuality(String name, int sellIn, int quality) {
+    private String doUpdateInventory(String name, int sellIn, int quality) {
         Item[] items = new Item[] { new Item(name, sellIn, quality)};
         GildedRose app = new GildedRose(items);
-        app.updateQuality();
+        app.updateInventory();
         return app.items[0].toString();
     }
 
@@ -39,7 +39,7 @@ class GildedRoseTest {
         final Item standardItem =  new Item("Elixir of the Mongoose", startingSellin, startingQuality);
         GildedRose app = new GildedRose(new Item[] {standardItem});
 
-        app.updateQuality();
+        app.updateInventory();
 
         assertEquals(standardItem.sellIn,startingSellin - 1);
         assertEquals(standardItem.quality,startingQuality - 1);
@@ -50,7 +50,7 @@ class GildedRoseTest {
         Item item = new Item("Aged Brie", 5, 6);
         GildedRose app = new GildedRose(new Item[] {item});
 
-        app.updateQuality();
+        app.updateInventory();
 
         assertEquals(item.quality,7);
     }
@@ -60,7 +60,7 @@ class GildedRoseTest {
         Item item = new Item("Standard Item", 4, 0);
         GildedRose app = new GildedRose(new Item[] {item});
 
-        app.updateQuality();
+        app.updateInventory();
 
         assertEquals(item.quality,0);
     }
@@ -69,7 +69,7 @@ class GildedRoseTest {
         Item item = new Item("Aged Brie", 5, 50);
         GildedRose app = new GildedRose(new Item[] {item});
 
-        app.updateQuality();
+        app.updateInventory();
 
         assertEquals(item.quality,50);
     }
