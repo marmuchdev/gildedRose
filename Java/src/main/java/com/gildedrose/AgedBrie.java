@@ -1,23 +1,18 @@
 package com.gildedrose;
 
-public class AgedBrie extends Item {
-    public AgedBrie(int sellIn, int quality) {
-        super( "Aged Brie", sellIn, quality);
+public class AgedBrie extends ItemInventory {
+    public AgedBrie(Item item) {
+        super(item);
     }
 
     @Override
-    protected void doUpdateQuality() {
-        //Aged Brie Logic Start
-        if (quality < 50) {
-            quality = quality + 1;
-        }
+    protected void updateQuality() {
+        increaseQuality();
 
-        sellIn = sellIn - 1;
+    }
 
-        if (sellIn < 0) {
-            if (quality < 50) {
-                quality = quality + 1;
-            }
-        }
+    @Override
+    protected void handleExpired() {
+        increaseQuality();
     }
 }
