@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-public class BackstagePass extends ItemInventory {
+public class BackstagePass extends ItemFactory {
     BackstagePass(Item item) {
         super(item);
     }

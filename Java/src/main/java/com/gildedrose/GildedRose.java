@@ -10,8 +10,8 @@ class GildedRose {
 
     public void dailyInventoryUpdate() {
         for (Item item : items) {
-            ItemInventory itemInventory = ItemInventory.createItemInventory(item);
-            itemInventory.updateItem();
+            ItemFactory itemFactory = ItemFactory.createItem(item);
+            itemFactory.updateItem();
         }
     }
 

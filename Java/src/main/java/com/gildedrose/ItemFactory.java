@@ -8,7 +8,7 @@ public class ItemFactory {
         this.item = item;
     }
 
-    public static ItemFactory createItemInventory(Item item) {
+    public static ItemFactory createItem(Item item) {
         switch (item.name) {
             case "Aged Brie":
                 return new AgedBrie(item);
@@ -16,6 +16,8 @@ public class ItemFactory {
                 return new BackstagePass(item);
             case "Sulfuras, Hand of Ragnaros":
                 return new Sulfuras(item);
+            case "Conjured":
+                return new Conjured(item);
             default:
                 return new ItemFactory(item);
         }
