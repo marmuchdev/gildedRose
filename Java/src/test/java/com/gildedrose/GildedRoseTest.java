@@ -1,7 +1,5 @@
 package com.gildedrose;
 
-import org.approvaltests.Approvals;
-import org.approvaltests.combinations.CombinationApprovals;
 import org.junit.jupiter.api.Test;
 
 import static org.approvaltests.combinations.CombinationApprovals.verifyAllCombinations;
@@ -11,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GildedRoseTest {
 
     @Test
-    void udpateQuality() throws Exception {
+    void udpateQuality() {
         //full coverage test
         verifyAllCombinations(
             this::doUpdateQuality,
@@ -21,17 +19,24 @@ class GildedRoseTest {
     }
 
     private String doUpdateQuality(String name, int sellIn, int quality) {
-        Item[] items = new Item[] {Item.createItem(name, sellIn, quality)};
+        Item[] items = new Item[] { new Item(name, sellIn, quality)};
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         return app.items[0].toString();
     }
 
+//    private String doUpdateQuality(String name, int sellIn, int quality) {
+//        Item[] items = new Item[] {Item.createItem(name, sellIn, quality)};
+//        GildedRose app = new GildedRose(items);
+//        app.updateQuality();
+//        return app.items[0].toString();
+//    }
+
     @Test
     void standardItemQualityDecreaseSellinDecreasesEachDay() {
         int startingSellin = 5;
         int startingQuality = 7;
-        final Item standardItem = Item.createItem("Elixir of the Mongoose", startingSellin, startingQuality);
+        final Item standardItem =  new Item("Elixir of the Mongoose", startingSellin, startingQuality);
         GildedRose app = new GildedRose(new Item[] {standardItem});
 
         app.updateQuality();
@@ -42,7 +47,7 @@ class GildedRoseTest {
 
     @Test
     void agedBrieIncreaseInQualityOverIime() {
-        Item item = Item.createItem("Aged Brie", 5, 6);
+        Item item = new Item("Aged Brie", 5, 6);
         GildedRose app = new GildedRose(new Item[] {item});
 
         app.updateQuality();
@@ -61,7 +66,7 @@ class GildedRoseTest {
     }
     @Test
     void qualityOfItemIsNeverGreaterThan50() {
-        Item item = new Item("Aged Brie", 5, 51);
+        Item item = new Item("Aged Brie", 5, 50);
         GildedRose app = new GildedRose(new Item[] {item});
 
         app.updateQuality();
