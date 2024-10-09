@@ -9,19 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GildedRoseTest {
 
     @Test
-    void udpateQuality() {
+    void dailyInventoryUpdate() {
         //full coverage test
         verifyAllCombinations(
-            this::doUpdateInventory,
+            this::doDailyInventoryUpdate,
             new String[]{"foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"},
-            new Integer[]{-1,0,5,6,11},
+            new Integer[]{-1,0,5,6,10,11},
             new Integer[]{0,1,49,50});
     }
 
-    private String doUpdateInventory(String name, int sellIn, int quality) {
+    private String doDailyInventoryUpdate(String name, int sellIn, int quality) {
         Item[] items = new Item[] { new Item(name, sellIn, quality)};
         GildedRose app = new GildedRose(items);
-        app.updateInventory();
+        app.dailyInventoryUpdate();
         return app.items[0].toString();
     }
 
@@ -39,7 +39,7 @@ class GildedRoseTest {
         final Item standardItem =  new Item("Elixir of the Mongoose", startingSellin, startingQuality);
         GildedRose app = new GildedRose(new Item[] {standardItem});
 
-        app.updateInventory();
+        app.dailyInventoryUpdate();
 
         assertEquals(standardItem.sellIn,startingSellin - 1);
         assertEquals(standardItem.quality,startingQuality - 1);
@@ -50,7 +50,7 @@ class GildedRoseTest {
         Item item = new Item("Aged Brie", 5, 6);
         GildedRose app = new GildedRose(new Item[] {item});
 
-        app.updateInventory();
+        app.dailyInventoryUpdate();
 
         assertEquals(item.quality,7);
     }
@@ -60,7 +60,7 @@ class GildedRoseTest {
         Item item = new Item("Standard Item", 4, 0);
         GildedRose app = new GildedRose(new Item[] {item});
 
-        app.updateInventory();
+        app.dailyInventoryUpdate();
 
         assertEquals(item.quality,0);
     }
@@ -69,10 +69,41 @@ class GildedRoseTest {
         Item item = new Item("Aged Brie", 5, 50);
         GildedRose app = new GildedRose(new Item[] {item});
 
-        app.updateInventory();
+        app.dailyInventoryUpdate();
 
         assertEquals(item.quality,50);
     }
 
+    @Test
+    void legendaryItemsNeverDecreaseInQuality() {
+        Item item = new Item("Sulfuras, Hand of Ragnaros", -1, 80);
+        GildedRose app = new GildedRose(new Item[] {item});
+
+        app.dailyInventoryUpdate();
+
+        assertEquals(item.quality,80);
+
+    }
+
+    @Test
+    void legendaryItemsNeverHasToBeSold() {
+        Item item = new Item("Sulfuras, Hand of Ragnaros", -1, 80);
+        GildedRose app = new GildedRose(new Item[] {item});
+
+        app.dailyInventoryUpdate();
+
+        assertEquals(item.sellIn,-1);
+
+    }
+
+    @Test
+    void backstagePassesQualityIs0AfterConcert() {
+        Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 20);
+        GildedRose app = new GildedRose(new Item[] {item});
+
+        app.dailyInventoryUpdate();
+
+        assertEquals(item.quality,0);
+    }
 
 }
