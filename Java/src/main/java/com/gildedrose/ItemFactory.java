@@ -1,17 +1,14 @@
 package com.gildedrose;
 
-public class ItemInventory {
+public class ItemFactory {
     protected final Item item;
 
-//    public static ItemInventory createInventoryItem(Item item) {
-//        return new ItemInventory(item);
-//    }
 
-    ItemInventory(Item item) {
+    ItemFactory(Item item) {
         this.item = item;
     }
 
-    public static ItemInventory createItemInventory(Item item) {
+    public static ItemFactory createItemInventory(Item item) {
         switch (item.name) {
             case "Aged Brie":
                 return new AgedBrie(item);
@@ -20,7 +17,7 @@ public class ItemInventory {
             case "Sulfuras, Hand of Ragnaros":
                 return new Sulfuras(item);
             default:
-                return new ItemInventory(item);
+                return new ItemFactory(item);
         }
     }
 
@@ -38,7 +35,7 @@ public class ItemInventory {
     }
 
     protected void updateExpiration() {
-        if (!item.name.equals("Sulfuras, Hand of Ragnaros")) item.sellIn -= 1;
+        item.sellIn -= 1;
     }
 
     protected boolean isExpired() {
@@ -52,13 +49,13 @@ public class ItemInventory {
 
     protected void increaseQuality() {
         if (item.quality < 50) {
-            item.quality = item.quality + 1;
+            item.quality += 1;
         }
     }
 
     protected void decreaseQuality() {
         if (item.quality > 0) {
-            item.quality = item.quality - 1;
+            item.quality -= 1;
         }
     }
 }
