@@ -13,7 +13,7 @@ class GildedRoseTest {
         //full coverage test
         verifyAllCombinations(
             this::doDailyInventoryUpdate,
-            new String[]{"foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"},
+            new String[]{"foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros", "Conjured"},
             new Integer[]{-1, 0, 5, 6, 10, 11},
             new Integer[]{0, 1, 49, 50});
     }
